@@ -1,3 +1,13 @@
+#### 1.0.1 (2021-09-08)
+
+##### New Features
+
+*  🎸 un styled (49f6c5ee)
+
+##### Other Changes
+
+*  allow any for fieldWidth and fieldHeight (36de7f22)
+
 #### 1.2.3 (2020-01-14)
 
 ##### Bug Fixes
