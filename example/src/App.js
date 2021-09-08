@@ -1,9 +1,9 @@
+import ReactCodeInput from '@gaudiy/react-verification-code-input';
 import React, { Component } from 'react';
-
-import ReactCodeInput from 'react-verification-code-input';
+import './index.css';
 
 const STYLE = {
-  width: '350px',
+  width: '375px',
   margin: '50px auto'
 };
 
@@ -27,7 +27,8 @@ export default class App extends Component {
       <div style={STYLE}>
         <ReactCodeInput
           ref={this.input}
-          className="custom-class"
+          className={"code-input-container"}
+          fieldClassName={"code-input-field"}
           onChange={this.handleChange}
           onComplete={val => console.log('complete', val)}
         />

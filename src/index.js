@@ -1,7 +1,5 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-import styles from './styles.css';
+import React, { Component } from 'react';
 
 const KEY_CODE = {
   backspace: 8,
@@ -17,24 +15,18 @@ export default class ReactCodeInput extends Component {
     onChange: PropTypes.func,
     onComplete: PropTypes.func,
     fields: PropTypes.number,
-    loading: PropTypes.bool,
-    title: PropTypes.string,
-    fieldWidth: PropTypes.number,
-    id: PropTypes.string,
-    fieldHeight: PropTypes.number,
     autoFocus: PropTypes.bool,
     className: PropTypes.string,
     values: PropTypes.arrayOf(PropTypes.string),
     disabled: PropTypes.bool,
     required: PropTypes.bool,
-    placeholder: PropTypes.arrayOf(PropTypes.string)
+    placeholder: PropTypes.arrayOf(PropTypes.string),
+    fieldClassName: PropTypes.string
   };
 
   static defaultProps = {
     type: 'number',
     fields: 6,
-    fieldWidth: 58,
-    fieldHeight: 54,
     autoFocus: true,
     disabled: false,
     required: false,
@@ -61,7 +53,6 @@ export default class ReactCodeInput extends Component {
     for (let i = 0; i < fields; i++) {
       this.iRefs.push(React.createRef());
     }
-    this.id = +new Date();
 
     // this.handleKeys = Array(fields).fill(false);
   }
@@ -190,72 +181,34 @@ export default class ReactCodeInput extends Component {
   render() {
     const { values, autoFocusIndex } = this.state;
     const {
-      loading,
-      title,
-      fieldHeight,
-      fieldWidth,
-      fields,
+      fieldClassName,
       autoFocus,
       className,
       type
     } = this.props;
-    const INPUT_STYLE = {
-      width: fieldWidth,
-      height: fieldHeight
-    };
-    const ROOT_STYLE = {
-      width: fields * fieldWidth
-    };
-    const LOADING_STYLE = {
-      lineHeight: `${fieldHeight}px`
-    };
+
     return (
-      <div
-        className={`${styles['react-code-input-container']} ${className}`}
-        style={ROOT_STYLE}
-      >
-        {title && <p className={styles['title']}>{title}</p>}
-        <div className={styles['react-code-input']}>
-          {values.map((value, index) => (
-            <input
-              type={type === 'number' ? 'tel' : type}
-              pattern={type === 'number' ? '[0-9]*' : null}
-              autoFocus={autoFocus && index === autoFocusIndex}
-              style={INPUT_STYLE}
-              key={`${this.id}-${index}`}
-              data-id={index}
-              value={value}
-              id={this.props.id ? `${this.props.id}-${index}` : null}
-              ref={this.iRefs[index]}
-              onChange={this.onChange}
-              onKeyDown={this.onKeyDown}
-              // onKeyUp={this.onKeyUp}
-              onFocus={this.onFocus}
-              disabled={this.props.disabled}
-              required={this.props.required}
-              placeholder={this.props.placeholder[index]}
-            />
-          ))}
-        </div>
-        {loading && (
-          <div className={styles['loading']} style={LOADING_STYLE}>
-            <div className={styles['blur']} />
-            <svg
-              className={styles['spin']}
-              viewBox="0 0 1024 1024"
-              data-icon="loading"
-              width="1em"
-              height="1em"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                fill="#006fff"
-                d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 0 0-94.3-139.9 437.71 437.71 0 0 0-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-              />
-            </svg>
-          </div>
-        )}
+      <div className={className}>
+        {values.map((value, index) => (
+          <input
+            type={type === 'number' ? 'tel' : type}
+            pattern={type === 'number' ? '[0-9]*' : null}
+            autoFocus={autoFocus && index === autoFocusIndex}
+            key={`react-code-input-${index}`}
+            data-id={index}
+            value={value}
+            id={`react-code-input-field-${index}`}
+            ref={this.iRefs[index]}
+            onChange={this.onChange}
+            onKeyDown={this.onKeyDown}
+            // onKeyUp={this.onKeyUp}
+            onFocus={this.onFocus}
+            disabled={this.props.disabled}
+            required={this.props.required}
+            placeholder={this.props.placeholder[index]}
+            className={fieldClassName}
+          />
+        ))}
       </div>
     );
   }

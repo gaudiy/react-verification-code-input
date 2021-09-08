@@ -3,3 +3,22 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.code-input-container {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+
+.code-input-field {
+  border: solid 1px #a8adb7;
+  font-family: 'Lato';
+  font-size: 20px;
+  color: #525461;
+  text-align: center;
+  box-sizing: border-box;
+  border-radius: 0;
+  -webkit-appearance: initial;
+  flex-shrink: 0;
+}
